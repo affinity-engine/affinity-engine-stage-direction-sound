@@ -2,7 +2,7 @@ import Ember from 'ember';
 import { test } from 'qunit';
 import moduleForAcceptance from '../../../../tests/helpers/module-for-acceptance';
 
-moduleForAcceptance('Acceptance | ember-theater/director/directions/sound', {
+moduleForAcceptance('Acceptance | affinity-engine/stage/directions/sound', {
   beforeEach() {
     Ember.$.Velocity.mock = true;
   },
@@ -12,6 +12,6 @@ moduleForAcceptance('Acceptance | ember-theater/director/directions/sound', {
   }
 });
 
-test('Ember Theater | Director | Directions | Sound', function(assert) {
-  visit('/ember-theater/test-scenarios/director/directions/sound');
+test('Affinity Engine | Director | Directions | Sound', function(assert) {
+  visit('/affinity-engine/test-scenarios/stage/directions/sound');
 });

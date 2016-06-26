@@ -2,5 +2,5 @@
 'use strict';
 
 module.exports = {
-  name: 'ember-theater-director-sound'
+  name: 'affinity-engine-stage-sound'
 };

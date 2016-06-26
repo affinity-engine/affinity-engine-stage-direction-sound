@@ -1,4 +1,4 @@
-import { Scene, step } from 'ember-theater-director';
+import { Scene, step } from 'affinity-engine-stage';
 
 export default Scene.extend({
   name: 'Sound Direction Test',

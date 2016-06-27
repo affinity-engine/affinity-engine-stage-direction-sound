@@ -1,1 +1,1 @@
-export { default } from 'affinity-engine-stage-sound/affinity-engine/stage/directions/sound';
+export { default } from 'affinity-engine-stage-direction-sound/affinity-engine/stage/directions/sound';

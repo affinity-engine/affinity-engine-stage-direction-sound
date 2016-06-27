@@ -2,5 +2,5 @@
 'use strict';
 
 module.exports = {
-  name: 'affinity-engine-stage-sound'
+  name: 'affinity-engine-stage-direction-sound'
 };

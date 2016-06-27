@@ -1,5 +1,5 @@
 {
-  "name": "affinity-engine-stage-sound",
+  "name": "affinity-engine-stage-direction-sound",
   "version": "0.0.0",
   "description": "Play sounds in Affinity Engine Stage",
   "directories": {
@@ -11,7 +11,7 @@
     "start": "ember server",
     "test": "ember try:testall"
   },
-  "repository": "https://github.com/affinity-engine/affinity-engine-stage-sound",
+  "repository": "https://github.com/affinity-engine/affinity-engine-stage-direction-sound",
   "engines": {
     "node": ">= 0.10.0"
   },

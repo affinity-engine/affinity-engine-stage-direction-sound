@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import multiton from 'ember-multiton-service';
-import { configurable } from 'affinity-engine';
+import { configurable, registrant } from 'affinity-engine';
 import { Direction } from 'affinity-engine-stage';
 
 const {
@@ -18,8 +18,8 @@ const configurationTiers = [
 export default Direction.extend({
   config: multiton('affinity-engine/fixture-store', 'engineId'),
   fixtureStore: multiton('affinity-engine/fixture-store', 'engineId'),
-  preloader: multiton('affinity-engine/preloader', 'engineId'),
-  soundManager: multiton('affinity-engine/sound-manager', 'engineId'),
+  preloader: registrant('preloader'),
+  soundManager: registrant('soundManager'),
 
   duration: configurable(configurationTiers, 'duration'),
 

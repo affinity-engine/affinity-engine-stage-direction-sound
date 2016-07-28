@@ -18,8 +18,8 @@ const configurationTiers = [
 export default Direction.extend({
   config: multiton('affinity-engine/fixture-store', 'engineId'),
   fixtureStore: multiton('affinity-engine/fixture-store', 'engineId'),
-  preloader: registrant('preloader'),
-  soundManager: registrant('soundManager'),
+  preloader: registrant('affinity-engine/preloader'),
+  soundManager: registrant('affinity-engine/sound-manager'),
 
   duration: configurable(configurationTiers, 'duration'),
 

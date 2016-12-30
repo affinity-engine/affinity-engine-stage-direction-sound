@@ -1,19 +1,13 @@
 import Ember from 'ember';
+import { registrant } from 'affinity-engine';
+import { Direction, cmd } from 'affinity-engine-stage';
 import multiton from 'ember-multiton-service';
-import { configurable, registrant } from 'affinity-engine';
-import { Direction } from 'affinity-engine-stage';
 
 const {
   get,
-  getProperties,
   set,
   typeOf
 } = Ember;
-
-const configurationTiers = [
-  'config.attrs.stage.sound',
-  'config.attrs.globals'
-];
 
 export default Direction.extend({
   config: multiton('affinity-engine/fixture-store', 'engineId'),
@@ -21,11 +15,7 @@ export default Direction.extend({
   preloader: registrant('affinity-engine/preloader'),
   soundManager: registrant('affinity-engine/sound-manager'),
 
-  duration: configurable(configurationTiers, 'duration'),
-
-  _setup(fixtureOrId) {
-    this._entryPoint();
-
+  _setup: cmd({ async: true }, function(fixtureOrId) {
     const fixtureStore = get(this, 'fixtureStore');
     const fixture = typeOf(fixtureOrId) === 'object' ? fixtureOrId : fixtureStore.find('sounds', fixtureOrId);
     const audioId = get(this, 'preloader').idFor(fixture, 'src');
@@ -35,130 +25,82 @@ export default Direction.extend({
     set(this, 'attrs.audioId', audioId);
     set(this, 'attrs.soundInstance', soundInstance);
 
-    return this;
-  },
+    this.on('complete', () => {
+      this.resolve();
+    });
+  }),
 
-  _reset() {
-    const attrs = get(this, 'attrs');
-
-    return this._super(getProperties(attrs, 'audioId', 'soundInstance'));
-  },
-
-  instance(instanceId) {
+  instance: cmd(function(instanceId) {
     const soundManager = get(this, 'soundManager');
     const audioId = get(this, 'attrs.audioId');
     const soundInstance = soundManager.findOrCreateInstance(audioId, instanceId);
 
     set(this, 'attrs.soundInstance', soundInstance);
-  },
+  }),
 
-  on(event, callback) {
-    this._entryPoint();
+  on: cmd(function(event, callback) {
+    get(this, 'attrs.soundInstance').on(event, callback);
+  }),
 
-    const soundInstance = get(this, 'attrs.soundInstance');
-
-    soundInstance.on(event, callback);
-
-    return this;
-  },
-
-  play() {
-    this._entryPoint();
-
+  play: cmd(function() {
     const soundInstance = get(this, 'attrs.soundInstance');
 
     soundInstance.paused = false;
     soundInstance.play();
+  }),
 
-    return this;
-  },
-
-  stop() {
-    this._entryPoint();
-
+  stop: cmd(function() {
     const soundInstance = get(this, 'attrs.soundInstance');
 
     soundInstance.stop();
+  }),
 
-    return this;
-  },
-
-  pause() {
-    this._entryPoint();
-
+  pause: cmd(function() {
     const soundInstance = get(this, 'attrs.soundInstance');
 
     soundInstance.paused = true;
+  }),
 
-    return this;
-  },
-
-  unpause() {
-    this._entryPoint();
-
+  unpause: cmd(function() {
     const soundInstance = get(this, 'attrs.soundInstance');
 
     soundInstance.paused = false;
+  }),
 
-    return this;
-  },
-
-  position(position) {
-    this._entryPoint();
-
+  position: cmd(function(position) {
     const soundInstance = get(this, 'attrs.soundInstance');
 
     soundInstance.position = position;
+  }),
 
-    return this;
-  },
-
-  loop(loop = true) {
-    this._entryPoint();
-
+  loop: cmd(function(loop = true) {
     const soundInstance = get(this, 'attrs.soundInstance');
     const noLoop = -1;
 
     soundInstance.loop = loop === true ? noLoop : loop;
+  }),
 
-    return this;
-  },
-
-  mute() {
-    this._entryPoint();
-
+  mute: cmd(function() {
     const soundInstance = get(this, 'attrs.soundInstance');
 
     soundInstance.muted = true;
+  }),
 
-    return this;
-  },
-
-  unmute() {
-    this._entryPoint();
-
+  unmute: cmd(function() {
     const soundInstance = get(this, 'attrs.soundInstance');
 
     soundInstance.muted = false;
+  }),
 
-    return this;
-  },
-
-  volume(volume) {
-    this._entryPoint();
-
+  volume: cmd(function(volume) {
     const soundInstance = get(this, 'attrs.soundInstance');
 
     this.stopFade(soundInstance);
 
     soundInstance.volume = volume;
+  }),
 
-    return this;
-  },
-
-  fadeTo(volume, duration, callback = Ember.K) {
-    this._entryPoint();
-
+  fadeTo: cmd(function(volume, duration, callback = Ember.K) {
     const soundInstance = get(this, 'attrs.soundInstance');
 
     this.stopFade(soundInstance);
@@ -168,7 +110,7 @@ export default Direction.extend({
     const volumeDistance = toVolume - fromVolume;
 
     const interval = 10;
-    const fadeDuration = duration || get(this, 'duration');
+    const fadeDuration = duration || 1000;
     const stepSize = volumeDistance / (fadeDuration / interval);
 
     soundInstance.currentFade = setInterval(() => {
@@ -180,46 +122,26 @@ export default Direction.extend({
         return callback();
       }
     }, interval);
+  }),
 
-    return this;
-  },
-
-  fadeIn(volume = 1, duration) {
-    this._entryPoint();
-
+  fadeIn: cmd(function(volume = 1, duration) {
     const soundInstance = get(this, 'attrs.soundInstance');
 
     soundInstance.volume = 0;
 
     this.fadeTo(volume, duration);
     this.play();
+  }),
 
-    return this;
-  },
-
-  fadeOut(duration) {
-    this._entryPoint();
-
+  fadeOut: cmd(function(duration) {
     this.fadeTo(0, duration, () => {
       this.stop();
     });
+  }),
 
-    return this;
-  },
-
-  stopFade() {
-    this._entryPoint();
-
+  stopFade: cmd(function() {
     const soundInstance = get(this, 'attrs.soundInstance');
 
     clearInterval(soundInstance.currentFade);
-
-    return this;
-  },
-
-  _perform(priorSceneRecord, resolve) {
-    this.on('complete', () => {
-      resolve();
-    });
-  }
+  })
 });

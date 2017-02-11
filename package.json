@@ -1,6 +1,6 @@
 {
   "name": "affinity-engine-stage-direction-sound",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Add sounds to Affinity Engine Stage",
   "keywords": [
     "ember-addon",
@@ -56,7 +56,7 @@
   },
   "ember-addon": {
     "configPath": "tests/dummy/config",
-    "demoURL": "http://www.affinityengine.org/#/components/stage/directions/sound",
+    "demoURL": "http://www.affinityengine.org/#/stage/directions/sound",
     "after": [
       "affinity-engine"
     ]

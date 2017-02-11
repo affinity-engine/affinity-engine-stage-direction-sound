@@ -75,9 +75,9 @@ export default Direction.extend({
 
   loop: cmd(function(loop = true) {
     const soundInstance = get(this, 'attrs.soundInstance');
-    const noLoop = -1;
+    const infiniteLoop = -1;
 
-    soundInstance.loop = loop === true ? noLoop : loop;
+    soundInstance.loop = loop === true ? infiniteLoop : loop;
   }),
 
   mute: cmd(function() {

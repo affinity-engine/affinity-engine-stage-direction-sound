@@ -1,6 +1,6 @@
 {
   "name": "affinity-engine-stage-direction-sound",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Add sounds to Affinity Engine Stage",
   "keywords": [
     "ember-addon",
@@ -25,11 +25,11 @@
     "ember-cli-htmlbars": "^1.0.10"
   },
   "devDependencies": {
-    "affinity-engine": "git+https://github.com/affinity-engine/affinity-engine.git",
-    "affinity-engine-curtain": "git+https://github.com/affinity-engine/affinity-engine-curtain.git",
-    "affinity-engine-preloader-createjs": "git+https://github.com/affinity-engine/affinity-engine-preloader-createjs.git",
-    "affinity-engine-sound-manager-createjs": "git+https://github.com/affinity-engine/affinity-engine-sound-manager-createjs.git",
-    "affinity-engine-stage": "git+https://github.com/affinity-engine/affinity-engine-stage.git",
+    "affinity-engine": "^0.1.0",
+    "affinity-engine-curtain": "^0.1.0",
+    "affinity-engine-preloader-createjs": "^0.1.0",
+    "affinity-engine-sound-manager-createjs": "^0.1.0",
+    "affinity-engine-stage": "^0.1.0",
     "babel-eslint": "^6.0.4",
     "broccoli-asset-rev": "^2.4.5",
     "ember-ajax": "^2.4.1",
@@ -56,7 +56,7 @@
   },
   "ember-addon": {
     "configPath": "tests/dummy/config",
-    "demoURL": "http://www.affinityengine.org/components/stage/directions/sound",
+    "demoURL": "http://www.affinityengine.org/#/components/stage/directions/sound",
     "after": [
       "affinity-engine"
     ]

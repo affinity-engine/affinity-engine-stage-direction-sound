@@ -6,7 +6,6 @@ import multiton from 'ember-multiton-service';
 const {
   assign,
   get,
-  set,
   typeOf
 } = Ember;
 

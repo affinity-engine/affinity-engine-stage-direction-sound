@@ -1,6 +1,6 @@
 {
   "name": "affinity-engine-stage-direction-sound",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Add sounds to Affinity Engine Stage",
   "keywords": [
     "ember-addon",

@@ -103,7 +103,7 @@ export default Direction.extend({
     soundInstance.muted = false;
   }),
 
-  fadeTo: cmd(function(volume, duration, callback = Ember.K) {
+  fadeTo: cmd(function(volume, duration, callback = function() {}) {
     const soundInstance = this.getConfiguration('soundInstance');
 
     this.stopFade(soundInstance);
@@ -111,6 +111,7 @@ export default Direction.extend({
     const fromVolume = soundInstance.volume;
     const toVolume = volume;
     const volumeDistance = toVolume - fromVolume;
+    const fadingIn = volumeDistance >= 0;
 
     const interval = 10;
     const fadeDuration = duration || 1000;
@@ -119,7 +120,7 @@ export default Direction.extend({
     soundInstance.currentFade = setInterval(() => {
       soundInstance.volume += stepSize;
 
-      if (soundInstance.volume >= 1) {
+      if (fadingIn ? soundInstance.volume >= toVolume : soundInstance.volume <= toVolume) {
         this.stopFade(soundInstance);
 
         return callback();
